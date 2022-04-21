@@ -8,9 +8,11 @@ import {
   ParseIntPipe,
   Post,
   Res,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { CreateCustomerDto } from '../dtos/createCustomer.dto';
+import { CustomerDto } from '../dtos/Customer.dto';
 import { CustomersService } from '../services/customers/customers.service';
 
 @Controller('customers')
@@ -47,8 +49,8 @@ export class ControllersController {
   }
 
   @Post('create')
-  public createCustomer(@Body() customer: CreateCustomerDto) {
-    console.log(customer);
+  @UsePipes(ValidationPipe)
+  public createCustomer(@Body() customer: CustomerDto) {
     this.service.createCustomer(customer);
   }
 }
