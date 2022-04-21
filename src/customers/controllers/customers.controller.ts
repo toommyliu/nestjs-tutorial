@@ -16,7 +16,7 @@ import { CustomerDto } from '../dtos/Customer.dto';
 import { CustomersService } from '../services/customers/customers.service';
 
 @Controller('customers')
-export class ControllersController {
+export class CustomersController {
   public constructor(private service: CustomersService) {}
 
   @Get(':id')
