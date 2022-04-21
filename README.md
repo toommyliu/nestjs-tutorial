@@ -1,3 +1,3 @@
 # nestjs-tutorial
 
-https://www.youtube.com/watch?v=Xhj2TgWLDAo
+https://www.youtube.com/watch?v=8uSxaMMcMYw
