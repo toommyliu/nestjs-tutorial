@@ -1,11 +1,13 @@
 import {
   Controller,
   Get,
-  HttpException,
-  HttpStatus,
   Inject,
   Param,
+  ParseIntPipe,
+  UseFilters,
 } from '@nestjs/common';
+import { InvalidUserException } from 'src/users/exceptions/invalid-user.exception';
+import { HttpExceptionFilter } from 'src/users/filters/HttpException.filter';
 import { UsersService } from 'src/users/services/users/users.service';
 
 @Controller('users')
@@ -19,13 +21,24 @@ export class UsersController {
     return this.service.getUsers();
   }
 
-  @Get('/:username')
+  @Get('username/:username')
   public getUserByName(@Param('username') username: string) {
-    const user = this.getUsers().find((u) => u.username === username);
+    const user = this.service.getUserByName(username);
     if (user) {
       return user;
     }
 
-    throw new HttpException('user not found', HttpStatus.BAD_REQUEST);
+    throw new InvalidUserException();
+  }
+
+  @UseFilters(HttpExceptionFilter)
+  @Get('id/:id')
+  public getUserById(@Param('id', ParseIntPipe) id: number) {
+    const user = this.service.getUserById(id);
+    if (user) {
+      return user;
+    }
+
+    throw new InvalidUserException();
   }
 }

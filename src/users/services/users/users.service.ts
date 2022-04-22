@@ -5,18 +5,22 @@ import { Exclude, plainToInstance } from 'class-transformer';
 export class UsersService {
   private users: User[] = [
     {
+      id: 1,
       username: 'username',
       password: 'password',
     },
     {
+      id: 2,
       username: 'abc',
       password: 'def',
     },
     {
+      id: 3,
       username: 'xyz',
       password: '123',
     },
     {
+      id: 4,
       username: 'user',
       password: 'pass',
     },
@@ -27,16 +31,23 @@ export class UsersService {
   }
 
   public getUserByName(username: string) {
-    return this.users.find((u) => u.username === username);
+    return this.getUsers().find((u) => u.username === username);
+  }
+
+  public getUserById(id: number) {
+    return this.getUsers().find((u) => u.id === id);
   }
 }
 
 export interface User {
+  id: number;
   username: string;
   password: string;
 }
 
 export class SerializedUser {
+  id: number;
+
   username: string;
 
   @Exclude()
