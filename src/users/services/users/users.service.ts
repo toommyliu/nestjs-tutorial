@@ -50,6 +50,10 @@ export class UsersService {
   public createUser(user: UserDto) {
     return this.userRepository.save(user);
   }
+
+  public findUser(username: string) {
+    return this.userRepository.findOne({ username });
+  }
 }
 
 export interface User {

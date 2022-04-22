@@ -8,12 +8,12 @@ export class User {
   })
   public id: number;
 
-  @Column({ name: 'email_address', nullable: true, unique: true, default: '' })
+  @Column({ name: 'email_address', nullable: true, unique: true })
   public emailAddress: string;
 
-  @Column({ nullable: false, default: '' })
+  @Column({ nullable: false })
   public username: string;
 
-  @Column({ nullable: false, default: '' })
+  @Column({ nullable: false })
   public password: string;
 }
