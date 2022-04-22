@@ -8,7 +8,7 @@ export class User {
   })
   public id: number;
 
-  @Column({ name: 'email_address', nullable: true, default: '' })
+  @Column({ name: 'email_address', nullable: true, unique: true, default: '' })
   public emailAddress: string;
 
   @Column({ nullable: false, default: '' })

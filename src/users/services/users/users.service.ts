@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Exclude, plainToInstance } from 'class-transformer';
+import { UserDto } from 'src/users/dto/User.dto';
+import { User as UserEntity } from 'src/entities/User';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
@@ -26,6 +30,11 @@ export class UsersService {
     },
   ];
 
+  public constructor(
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
+  ) {}
+
   public getUsers() {
     return this.users.map((u) => plainToInstance(SerializedUser, u));
   }
@@ -36,6 +45,10 @@ export class UsersService {
 
   public getUserById(id: number) {
     return this.getUsers().find((u) => u.id === id);
+  }
+
+  public createUser(user: UserDto) {
+    return this.userRepository.save(user);
   }
 }
 

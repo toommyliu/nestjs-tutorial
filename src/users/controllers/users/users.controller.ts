@@ -1,11 +1,16 @@
 import {
   Controller,
   Get,
+  Post,
   Inject,
   Param,
   ParseIntPipe,
   UseFilters,
+  Body,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
+import { UserDto } from 'src/users/dto/User.dto';
 import { InvalidUserException } from 'src/users/exceptions/invalid-user.exception';
 import { HttpExceptionFilter } from 'src/users/filters/HttpException.filter';
 import { UsersService } from 'src/users/services/users/users.service';
@@ -40,5 +45,11 @@ export class UsersController {
     }
 
     throw new InvalidUserException();
+  }
+
+  @Post('create')
+  @UsePipes(ValidationPipe)
+  public createUser(@Body() user: UserDto) {
+    return this.service.createUser(user);
   }
 }
